@@ -16,7 +16,7 @@ requires-python = ">=3.9"
 "Homepage" = "https://github.com/artefactory/xhec-mlops-project-student" # TODO: update this URL
 
 [tool.setuptools]
-packages = ["src", "config"]
+packages = ["src"]
 
 [tool.ruff]
 select = [
@@ -47,6 +47,9 @@ ignore = [
   "PD901",
   "RET504",
   "N806",
+  "ANN001",
+  "D415",
+  "PTH118"
 ]
 line-length = 100
 target-version = "py310"
