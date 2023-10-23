@@ -5,7 +5,7 @@ from utils import save_pickle
 
 
 def extract_X_y(df: pd.DataFrame) -> None:
-    """extract X and y from the dataframe
+    """Extract X and y from the dataframe
 
     Args:
         df (pd.DataFrame): preprocessed_df
@@ -17,7 +17,7 @@ def extract_X_y(df: pd.DataFrame) -> None:
 
 
 def train_model(preprocessed_df: pd.DataFrame) -> None:
-    """train xgboost model on preprocessed df and save it in pkl format
+    """Train xgboost model on preprocessed df and save it in pkl format
 
     Args:
         preprocessed_df (pd.DataFrame): preprocessed df

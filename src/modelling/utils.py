@@ -1,5 +1,7 @@
-# Use this module to code a `pickle_object` function. This will be useful to pickle the model (and encoder if need be).
+# Use this module to code a `pickle_object` function. This will be useful to
+# pickle the model (and encoder if need be).
 import pickle
+from typing import Any
 
 import pandas as pd
 
@@ -11,7 +13,7 @@ def read_data(dataset_path: str) -> pd.DataFrame:
 
 
 def save_pickle(obj, path: str):
-    """save pickle object
+    """Save pickle object
 
     Args:
         obj (_type_): object to pickle
@@ -21,8 +23,8 @@ def save_pickle(obj, path: str):
         pickle.dump(obj, f)
 
 
-def load_pickle(path: str):
-    """load pickle object
+def load_pickle(path: str) -> Any:
+    """Load pickle object
 
     Args:
         obj (_type_): object to load

@@ -8,7 +8,7 @@ from utils import read_data
 
 
 def main(trainset_path: Path) -> None:
-    """main function to train the model and save it in pkl format in the `src/web_service/local_objects` folder.
+    """Main function to train the model and save it in pkl format in the `src/web_service/local_objects` folder.
     standard scaler and label encoder are also saved in the same folder.
 
     Args:

@@ -12,7 +12,7 @@ def preprocessing(
     scaler: StandardScaler = None,
     label_encoder: LabelEncoder = None,
 ) -> pd.DataFrame:
-    """preprocess the data, apply standard scaler and label encoder if
+    """Preprocess the data, apply standard scaler and label encoder if
     training is True, else apply the same transformations as in training.
 
     Args:
@@ -31,7 +31,6 @@ def preprocessing(
         ValueError: if scaler or label_encoder are not provided in predicting
         mode
     """
-
     if not training:
         # check if scaler and label_encoder are provided
         if scaler is None or label_encoder is None:
