@@ -1,9 +1,10 @@
 # This module is the training flow: it reads the data, preprocesses it, trains a model and saves it.
+import argparse
+from pathlib import Path
+
 from preprocessing import preprocessing
 from training import train_model
-import argparse
 from utils import read_data
-from pathlib import Path
 
 
 def main(trainset_path: Path) -> None:

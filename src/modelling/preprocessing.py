@@ -1,9 +1,9 @@
 import os
 
 import pandas as pd
+from config import LOCAL_OBJECTS_PATH, NUMERICAL_COLS
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 from utils import save_pickle
-from config import LOCAL_OBJECTS_PATH, NUMERICAL_COLS
 
 
 def preprocessing(

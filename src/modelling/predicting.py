@@ -1,8 +1,7 @@
 import pandas as pd
-import pickle
-from xgboost import XGBRegressor
 from preprocessing import preprocessing
-from sklearn.preprocessing import StandardScaler, LabelEncoder
+from sklearn.preprocessing import LabelEncoder, StandardScaler
+from xgboost import XGBRegressor
 
 
 def predict(

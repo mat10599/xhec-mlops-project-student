@@ -1,7 +1,7 @@
 import pandas as pd
 import xgboost as xgb
-from utils import save_pickle
 from config import MODEL_PATH
+from utils import save_pickle
 
 
 def extract_X_y(df: pd.DataFrame) -> None:
