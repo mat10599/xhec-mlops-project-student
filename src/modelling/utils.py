@@ -1,9 +1,18 @@
 # Use this module to code a `pickle_object` function. This will be useful to pickle the model (and encoder if need be).
 import pickle
-import os 
+import os
 import pandas as pd
 
-NUMERICAL_COLS = ["Length", "Diameter", "Height", "Whole weight", "Shucked weight", "Viscera weight", "Shell weight"]
+NUMERICAL_COLS = [
+    "Length",
+    "Diameter",
+    "Height",
+    "Whole weight",
+    "Shucked weight",
+    "Viscera weight",
+    "Shell weight",
+]
+
 ROOT_PATH = os.getcwd()
 LOCAL_OBJECTS_PATH = os.path.join(ROOT_PATH, "src/web_service/local_objects")
 MODEL_PATH = os.path.join(LOCAL_OBJECTS_PATH, "model.pkl")
@@ -16,13 +25,22 @@ def read_data(dataset_path: str) -> pd.DataFrame:
     return df
 
 
-def save_pickle(obj, path):
-    with open(path, 'wb') as f:
+def save_pickle(obj, path: str):
+    """save pickle object
+
+    Args:
+        obj (_type_): object to pickle
+        path (_type_): path of the pickle file
+    """
+    with open(path, "wb") as f:
         pickle.dump(obj, f)
 
 
-def load_pickle(path):
-    with open(path, 'rb') as f:
+def load_pickle(path: str):
+    """load pickle object
+
+    Args:
+        obj (_type_): object to load
+    """
+    with open(path, "rb") as f:
         return pickle.load(f)
-
-
