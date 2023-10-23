@@ -136,3 +136,4 @@ secrets/*
 
 /data
 
+*.DS_Store
