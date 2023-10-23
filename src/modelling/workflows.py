@@ -54,9 +54,11 @@ def batch_predict_workflow(
     if model is None:
         model = load_pickle(os.path.join(artifacts_filepath, "model.pkl"))
 
+    logger.info("Reading data...")
+    input_data = read_data(dataset_path=input_filepath)
     logger.info("Preprocessing data...")
     X, _, _ = preprocessing(
-        filepath=input_filepath,
+        input_data,
         training=False,
         scaler=numerical_encoders,
         label_encoder=label_encoder,
@@ -75,7 +77,8 @@ if __name__ == "__main__":
         artifacts_filepath=LOCAL_OBJECTS_PATH,
     )
 
-    batch_predict_workflow(
-        input_filepath=DATA_PATH,
-        artifacts_filepath=LOCAL_OBJECTS_PATH,
-    )
+    # This is commented since we do not have test data
+    # batch_predict_workflow(
+    #    input_filepath=DATA_PATH,
+    #    artifacts_filepath=LOCAL_OBJECTS_PATH,
+    # )

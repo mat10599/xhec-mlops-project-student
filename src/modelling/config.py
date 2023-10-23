@@ -11,6 +11,6 @@ NUMERICAL_COLS = [
 ]
 
 ROOT_PATH = os.getcwd()
-LOCAL_OBJECTS_PATH = os.path.join(ROOT_PATH, "src/web_service/local_objects")
+LOCAL_OBJECTS_PATH = os.path.join(ROOT_PATH, "../web_service/local_objects")
 MODEL_PATH = os.path.join(LOCAL_OBJECTS_PATH, "model.pkl")
-DATA_PATH = os.path.join(ROOT_PATH, "data/abalone.csv")
+DATA_PATH = os.path.join(ROOT_PATH, "../../data/abalone.csv")

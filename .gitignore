@@ -139,3 +139,4 @@ notebooks/
 
 
 *.DS_Store
+data/abalone.csv

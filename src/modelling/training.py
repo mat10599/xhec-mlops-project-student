@@ -5,7 +5,7 @@ from xgboost import XGBRegressor
 from prefect import flow, task
 
 
-@task("Extract features and labels")
+@task(name="Extract features and labels")
 def extract_X_y(df: pd.DataFrame) -> Tuple[pd.DataFrame, pd.DataFrame]:
     """Extract X and y from the dataframe
 
@@ -18,7 +18,7 @@ def extract_X_y(df: pd.DataFrame) -> Tuple[pd.DataFrame, pd.DataFrame]:
     return X, y
 
 
-@task(name="Train model")
+@flow(name="Train model")
 def train_model(preprocessed_df: pd.DataFrame) -> XGBRegressor:
     """Train xgboost model on preprocessed df and save it in pkl format
 

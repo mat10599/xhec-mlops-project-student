@@ -5,6 +5,7 @@ from config import NUMERICAL_COLS
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 from utils import save_pickle
 from config import LOCAL_OBJECTS_PATH, NUMERICAL_COLS
+from prefect import flow, task
 
 
 @flow(name="Preprocess data")
