@@ -1,20 +1,19 @@
-import os
+from typing import List, Tuple
 
 import pandas as pd
-from config import LOCAL_OBJECTS_PATH, NUMERICAL_COLS
+from config import NUMERICAL_COLS
 from sklearn.preprocessing import LabelEncoder, StandardScaler
-from utils import save_pickle
 
 from prefect import flow, task
 
 
-@task(name="Preprocess data")
+@flow(name="Preprocess data")
 def preprocessing(
     df: pd.DataFrame,
     training: bool = True,
     scaler: StandardScaler = None,
     label_encoder: LabelEncoder = None,
-) -> pd.DataFrame:
+) -> Tuple[pd.DataFrame, StandardScaler, LabelEncoder]:
     """Preprocess the data, apply standard scaler and label encoder if
     training is True, else apply the same transformations as in training.
 
@@ -47,11 +46,10 @@ def preprocessing(
         df[NUMERICAL_COLS] = numerical_encoders.fit_transform(df[NUMERICAL_COLS])
         df["Sex"] = label_encoder.fit_transform(df["Sex"])
 
-        save_pickle(numerical_encoders, os.path.join(LOCAL_OBJECTS_PATH, "numerical_encoders.pkl"))
-        save_pickle(label_encoder, os.path.join(LOCAL_OBJECTS_PATH, "label_encoder.pkl"))
+        return df, numerical_encoders, label_encoder
 
     else:
         df[NUMERICAL_COLS] = scaler.transform(df[NUMERICAL_COLS])
         df["Sex"] = label_encoder.transform(df["Sex"])
 
-    return df
+    return df, None, None

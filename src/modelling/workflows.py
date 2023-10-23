@@ -8,73 +8,74 @@ from loguru import logger
 # from modeling import evaluate_model, predict, train_model
 from prefect import flow
 from preprocessing import preprocessing
-from training import extract_X_y, train_model
+from training import train_model
+from predicting import predict
 from config import DATA_PATH
-from sklearn.feature_extraction import DictVectorizer
-from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import LabelEncoder, StandardScaler
+from xgboost import XGBRegressor
 
 
 @flow(name="Train model")
 def train_model_workflow(
     train_filepath: str,
-    test_filepath: str,
     artifacts_filepath: Optional[str] = None,
 ) -> dict:
     """Train a model and save it to a file"""
     logger.info("Read data from local files...")
-    data = read_data(dataset_path=DATA_PATH)
+    data = read_data(dataset_path=train_filepath)
     logger.info("Processing training data...")
-    processed_data = preprocessing(data, training=True)
+    processed_data, numerical_encoders, label_encoder = preprocessing(data, training=True)
     logger.info("Training model...")
-    train_model(processed_data)
-
-    logger.info("Processing training data...")
-    X_train, y_train, dv = process_data(filepath=train_filepath, with_target=True)
-    logger.info("Processing test data...")
-    X_test, y_test, _ = process_data(filepath=test_filepath, with_target=True, dv=dv)
-    logger.info("Training model...")
-    model = train_model(X_train, y_train)
-    logger.info("Making predictions and evaluating...")
-    y_pred = predict(X_test, model)
-    rmse = evaluate_model(y_test, y_pred)
+    model = train_model(processed_data)
 
     if artifacts_filepath is not None:
         logger.info(f"Saving artifacts to {artifacts_filepath}...")
-        save_pickle(os.path.join(artifacts_filepath, "dv.pkl"), dv)
-        save_pickle(os.path.join(artifacts_filepath, "model.pkl"), model)
+        save_pickle(model, os.path.join(artifacts_filepath, "model.pkl"))
+        save_pickle(numerical_encoders, os.path.join(artifacts_filepath, "numerical_encoders.pkl"))
+        save_pickle(label_encoder, os.path.join(artifacts_filepath, "label_encoder.pkl"))
 
-    return {"model": model, "dv": dv, "rmse": rmse}
+    return {"model": model, "numerical_endoers": numerical_encoders, "label_encoder": label_encoder}
 
 
 @flow(name="Batch predict", retries=1, retry_delay_seconds=30)
 def batch_predict_workflow(
     input_filepath: str,
-    model: Optional[LinearRegression] = None,
-    dv: Optional[DictVectorizer] = None,
+    model: Optional[XGBRegressor] = None,
+    numerical_encoders: Optional[StandardScaler] = None,
+    label_encoder: Optional[LabelEncoder] = None,
     artifacts_filepath: Optional[str] = None,
 ) -> np.ndarray:
     """Make predictions on a new dataset"""
-    if dv is None:
-        dv = load_pickle(os.path.join(artifacts_filepath, "dv.pkl"))
+    logger.info("Retrieving models...")
+    if numerical_encoders is None:
+        numerical_encoders = load_pickle(os.path.join(artifacts_filepath, "numerical_encoders.pkl"))
+    if label_encoder is None:
+        label_encoder = load_pickle(os.path.join(artifacts_filepath, "label_encoder.pkl"))
     if model is None:
         model = load_pickle(os.path.join(artifacts_filepath, "model.pkl"))
 
-    X, _, _ = process_data(filepath=input_filepath, with_target=False, dv=dv)
-    y_pred = predict(X, model)
+    logger.info("Preprocessing data...")
+    X, _, _ = preprocessing(
+        filepath=input_filepath,
+        training=False,
+        scaler=numerical_encoders,
+        label_encoder=label_encoder,
+    )
+    logger.info("Predicting data...")
+    y_pred = predict(model=model, input_data=X)
 
     return y_pred
 
 
 if __name__ == "__main__":
-    from config import DATA_DIRPATH, MODELS_DIRPATH
+    from config import DATA_PATH, LOCAL_OBJECTS_PATH
 
     train_model_workflow(
-        train_filepath=os.path.join(DATA_DIRPATH, "yellow_tripdata_2021-01.parquet"),
-        test_filepath=os.path.join(DATA_DIRPATH, "yellow_tripdata_2021-02.parquet"),
-        artifacts_filepath=MODELS_DIRPATH,
+        train_filepath=DATA_PATH,
+        artifacts_filepath=LOCAL_OBJECTS_PATH,
     )
 
     batch_predict_workflow(
-        input_filepath=os.path.join(DATA_DIRPATH, "yellow_tripdata_2021-03.parquet"),
+        input_filepath=DATA_PATH,
         artifacts_filepath=MODELS_DIRPATH,
     )
