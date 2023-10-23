@@ -2,9 +2,9 @@
 
 This project consists of predicting the age of an abalone based on various physical attributes, such as their measurements and weight.
 
-## Team 
+## Team
 
-Timothé Gypteau, François Moreau, Etienne du Fayet, Mathieu Nordin, Pierre de la Belliere, Sophie Marchal
+Pierre de la Belliere, Etienne du Fayet, Timothé Gypteau, Sophie Marchal, François Moreau, Mathieu Nordin
 
 ## Project Goals
 
@@ -23,27 +23,27 @@ Feel free to navigate through the project's sections, including the notebooks, P
 
 Before you begin, ensure you have the following prerequisites in place:
 
-- Python Installation: Make sure Python is installed on your computer. If you haven't installed Python, you can download it from the official website: https://python.org 
+- Python Installation: Make sure Python is installed on your computer. If you haven't installed Python, you can download it from the official website: https://python.org
 - Virtual Environment Tool: You can use a virtual environment tool to manage project dependencies. We recommend either of the following options:
-    * ["virtualvenv"](https://learnpython.com/blog/how-to-use-virtualenv-python/) 
+    * ["virtualvenv"](https://learnpython.com/blog/how-to-use-virtualenv-python/)
     * [anaconda](https://www.anaconda.com/download)
 
-## Installation 
+## Installation
 
 1) Clone the repository.
 2) Create a `data` folder at the root of the repository and put the file `abalone.csv` in it. The `abalone.csv` file can be downloaded at this [link](https://www.kaggle.com/datasets/rodolfomendes/abalone-dataset).
-3) Install requirements 
+3) Install requirements
    - For anaconda users
 
-    1) ```bash 
+    1) ```bash
         conda create --name myenv python=3.8  # creates the environment
         ```
 
-    2)  ```bash 
+    2)  ```bash
         conda create --name myenv python=3.8  # activates the environment
         ```
 
-    3)  ```bash 
+    3)  ```bash
         conda install --file requirements.in # install the required packages
         ```
     - For virtualvenv users
@@ -54,13 +54,13 @@ Before you begin, ensure you have the following prerequisites in place:
         # On macOS and Linux        # creates the environment
         python3 -m venv myenv
 
-    2)  ```bash 
+    2)  ```bash
         # On Windows
         myenv\Scripts\activate
         # On macOS and Linux            # activates the environment
         source myenv/bin/activate
 
-    3)  ```bash 
+    3)  ```bash
         pip install pip-tools       # pip-tools is required to run requirements.in
         ```
 
@@ -138,7 +138,7 @@ The ETL (Extract, Transform, Load) flow is defined to manage the data pipeline. 
 - Data Transformation: Preprocessing the data, including feature engineering and splitting it into training and testing sets.
 - Data Loading: Saving the transformed data for model training.
 
-### Execution 
+### Execution
 
 To run the ETL flow, execute the following command in the project directory:
 
@@ -155,13 +155,13 @@ To initiate the Model Training flow, execute the following command in the projec
 train_model_workflow()
 ```
 
-### Predict flow 
+### Predict flow
 
-Additionally, you can also run the bash_predic_work.flow function to perform predictions. 
+Additionally, you can also run the bash_predic_work.flow function to perform predictions.
 
 To do so, execute the following command:
 
-```bash 
+```bash
 bash_predict_workflow()
 ```
 
