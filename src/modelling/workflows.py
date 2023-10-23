@@ -77,5 +77,5 @@ if __name__ == "__main__":
 
     batch_predict_workflow(
         input_filepath=DATA_PATH,
-        artifacts_filepath=MODELS_DIRPATH,
+        artifacts_filepath=LOCAL_OBJECTS_PATH,
     )
