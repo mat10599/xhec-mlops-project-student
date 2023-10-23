@@ -1,6 +1,7 @@
 # Use this module to code a `pickle_object` function. This will be useful to
 # pickle the model (and encoder if need be).
 import pickle
+import os
 from typing import Any
 from prefect import flow, task
 

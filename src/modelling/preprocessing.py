@@ -3,8 +3,8 @@ from typing import List, Tuple
 import pandas as pd
 from config import NUMERICAL_COLS
 from sklearn.preprocessing import LabelEncoder, StandardScaler
-
-from prefect import flow, task
+from utils import save_pickle
+from config import LOCAL_OBJECTS_PATH, NUMERICAL_COLS
 
 
 @flow(name="Preprocess data")
