@@ -1,18 +1,33 @@
-import pandas as pd 
-from sklearn.preprocessing import LabelEncoder
+import os
+
+import pandas as pd
+from sklearn.preprocessing import LabelEncoder, StandardScaler
+from utils import LOCAL_OBJECTS_PATH, NUMERICAL_COLS, save_pickle
 
 
-def preprocessing(dataset_path: str)->pd.DataFrame:
-    df = read_data(dataset_path=dataset_path)
+def preprocessing(
+        df: pd.DataFrame,
+        training: bool = False,
+        scaler:StandardScaler = None,
+        label_encoder: LabelEncoder = None) -> pd.DataFrame:
+    
     df['age'] = df['Rings']+1.5
-    df = df.drop('Rings', axis = 1)
-    label_encoder = LabelEncoder()
-    df['Sex'] = label_encoder.fit_transform(df['Sex'])
+    df = df.drop('Rings', axis=1)
+
+    if training:
+        label_encoder = LabelEncoder()
+        numerical_encoders = StandardScaler()
+        df[NUMERICAL_COLS] = numerical_encoders.fit_transform(
+            df[NUMERICAL_COLS])
+        df['Sex'] = label_encoder.fit_transform(df['Sex'])
+        save_pickle(numerical_encoders, os.path.join(
+            LOCAL_OBJECTS_PATH, "numerical_encoders.pkl"))
+        save_pickle(label_encoder, os.path.join(
+            LOCAL_OBJECTS_PATH, "label_encoder.pkl"))
+    else:
+        df[[NUMERICAL_COLS]] = scaler.transform(df[[NUMERICAL_COLS]])
+        df["Sex"] = label_encoder.transform(df['Sex'])
+
     return df
 
 
-
-def read_data(dataset_path: str) -> pd.DataFrame:
-    """Read the data at the given path and return a dataframe."""
-    df = pd.read_csv(dataset_path)
-    return df
