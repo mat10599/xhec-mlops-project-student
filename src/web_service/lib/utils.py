@@ -3,7 +3,6 @@ import pickle
 import logging
 from functools import lru_cache
 
-from loguru import logger
 
 logger = logging.getLogger(__name__)
 
@@ -41,3 +40,26 @@ def load_preprocessor(filepath: os.PathLike):
 
     except Exception as e:
         logger.error(f"An error occurred: {e}")
+
+@lru_cache 
+def load_label_encoder(filepath: os.PathLike):
+    logger.info(f"Loading label_encoder from {filepath}")
+
+    try:
+        with open(filepath, "rb") as f:
+            label_encoder = pickle.load(f)
+        logger.info(f"Preprocessor loaded successfully from {filepath}")
+        return label_encoder
+
+    except FileNotFoundError:
+        logger.error(f"File not found: {filepath}")
+
+    except pickle.UnpicklingError:
+        logger.error(f"File {filepath} could not be unpickled.")
+
+    except Exception as e:
+        logger.error(f"An error occurred: {e}")
+
+def save_pickle(obj, path):
+    with open(path, 'wb') as f:
+        pickle.dump(obj, f)

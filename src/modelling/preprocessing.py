@@ -7,15 +7,14 @@ from config import LOCAL_OBJECTS_PATH, NUMERICAL_COLS
 
 
 def preprocessing(
-    df: pd.DataFrame,
-    training: bool = False,
-    scaler: StandardScaler = None,
-    label_encoder: LabelEncoder = None,
-) -> pd.DataFrame:
-    df["age"] = df["Rings"] + 1.5
-    df = df.drop("Rings", axis=1)
+        df: pd.DataFrame,
+        training: bool = False,
+        scaler:StandardScaler = None,
+        label_encoder: LabelEncoder = None) -> pd.DataFrame:
 
     if training:
+        df['age'] = df['Rings']+1.5
+        df = df.drop('Rings', axis=1)
         label_encoder = LabelEncoder()
         numerical_encoders = StandardScaler()
         df[NUMERICAL_COLS] = numerical_encoders.fit_transform(df[NUMERICAL_COLS])
