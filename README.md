@@ -101,24 +101,20 @@ To deploy the Abalone Age Prediction app, you can use Docker to containerize the
 ### Build a Docker Image
 
 1. **Navigate to the App Directory**:
-   Change your current working directory to the directory containing the app files. For example:
-
-   ```bash
-   cd src/web_service/
-   ```
+   Change your current working directory to the directory containing the app files which is the root directory.
 
 2. **Build the Docker image**:
     Use the docker build command to create a Docker image for the app.
 
     ```bash
-    docker build -t image_name .
+    docker build -t xhec_mlops:abalone -f Dockerfile.app .
     ```
 
 3. **Run the Docker Container**:
     After building the Docker image, you can run it as a container using the docker run command. Specify the port to expose on your host machine (e.g., 8501) and link it to the port exposed by the container (also 8501). Replace image_name with the name you provided when building the image.
 
     ```bash
-    docker run -p 8501:8501 image_name
+    docker run -dp 0.0.0.0:8000:8001 xhec_mlops:abalone
     ```
 
 4. **Access the app**:
@@ -144,7 +140,7 @@ The ETL (Extract, Transform, Load) flow is defined to manage the data pipeline. 
 To run the ETL flow, execute the following command in the project directory:
 
 ```bash
-python workflow.py
+python workflows.py
 ```
 ### Model training flow
 
