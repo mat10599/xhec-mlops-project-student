@@ -26,6 +26,13 @@ def run_inference(input_data: List[InputData], ss, label_encoder, model: BaseEst
     logger.info(f"Running inference on:\n{input_data}")
     df = pd.DataFrame([x.dict() for x in input_data])
     
+    df.rename(columns={
+    "Whole_weight": "Whole weight",
+    "Shucked_weight": "Shucked weight",  
+    "Viscera_weight": "Viscera weight",
+    "Shell_weight": "Shell weight"}, 
+    inplace=True)
+
     processed_df = preprocessing(df, ss, label_encoder)
 
     y = model.predict(processed_df)

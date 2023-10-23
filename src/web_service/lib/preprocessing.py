@@ -25,7 +25,7 @@ def preprocessing(
         save_pickle(label_encoder, os.path.join(
             LOCAL_OBJECTS_PATH, "label_encoder.pkl"))
     else:
-        df[[NUMERICAL_COLS]] = scaler.transform(df[[NUMERICAL_COLS]])
+        df[NUMERICAL_COLS] = scaler.transform(df[NUMERICAL_COLS])
         df["Sex"] = label_encoder.transform(df['Sex'])
 
     return df
