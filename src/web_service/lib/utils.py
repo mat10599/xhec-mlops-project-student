@@ -7,7 +7,8 @@ from loguru import logger
 
 logger = logging.getLogger(__name__)
 
-@lru_cache  
+
+@lru_cache
 def load_model(filepath: os.PathLike):
     logger.info(f"Loading model from {filepath}")
     try:
@@ -17,13 +18,12 @@ def load_model(filepath: os.PathLike):
         return model
     except FileNotFoundError:
         logger.error(f"File not found: {filepath}")
-        
+
     except Exception as e:
         logger.error(f"An error occurred while loading the model: {e}")
 
 
-
-@lru_cache 
+@lru_cache
 def load_preprocessor(filepath: os.PathLike):
     logger.info(f"Loading preprocessor from {filepath}")
 
@@ -41,4 +41,3 @@ def load_preprocessor(filepath: os.PathLike):
 
     except Exception as e:
         logger.error(f"An error occurred: {e}")
-

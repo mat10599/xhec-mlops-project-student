@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 
+
 class InputData(BaseModel):
     Sex: str
     Length: int
@@ -9,6 +10,7 @@ class InputData(BaseModel):
     Shucked_weight: int
     Viscera_weight: int
     Shell_weight: int
-    
+
+
 class PredictionOut(BaseModel):
     Age: float

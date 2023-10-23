@@ -10,7 +10,6 @@ CATEGORICAL_VARS = ["Sex"]
 # MISC
 APP_TITLE = "AbaloneAgePredictionApp"
 APP_DESCRIPTION = (
-    "A simple API to predict Abalone Age"
-    "given some abalone morphometrics measurements. "
+    "A simple API to predict Abalone Age" "given some abalone morphometrics measurements. "
 )
 APP_VERSION = "0.0.1"
