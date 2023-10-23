@@ -1,10 +1,14 @@
+from typing import List, Tuple
+
 import pandas as pd
 import xgboost as xgb
 from config import MODEL_PATH
 from utils import save_pickle
+from prefect import flow, task
 
 
-def extract_X_y(df: pd.DataFrame) -> None:
+@task("Extract features and labels")
+def extract_X_y(df: pd.DataFrame) -> Tuple[pd.DataFrame, pd.DataFrame]:
     """Extract X and y from the dataframe
 
     Args:
@@ -16,6 +20,7 @@ def extract_X_y(df: pd.DataFrame) -> None:
     return X, y
 
 
+@task(name="Train model")
 def train_model(preprocessed_df: pd.DataFrame) -> None:
     """Train xgboost model on preprocessed df and save it in pkl format
 

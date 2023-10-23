@@ -2,8 +2,10 @@ import pandas as pd
 from preprocessing import preprocessing
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 from xgboost import XGBRegressor
+from prefect import flow, task
 
 
+@task(name="Predict model")
 def predict(
     model: XGBRegressor,
     input_data: pd.DataFrame,

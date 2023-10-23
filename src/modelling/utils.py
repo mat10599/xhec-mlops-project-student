@@ -2,16 +2,19 @@
 # pickle the model (and encoder if need be).
 import pickle
 from typing import Any
+from prefect import flow, task
 
 import pandas as pd
 
 
+@task(name="Read data from path")
 def read_data(dataset_path: str) -> pd.DataFrame:
     """Read the data at the given path and return a dataframe."""
     df = pd.read_csv(dataset_path)
     return df
 
 
+@task(name="Save pickle")
 def save_pickle(obj, path: str):
     """Save pickle object
 
@@ -23,6 +26,7 @@ def save_pickle(obj, path: str):
         pickle.dump(obj, f)
 
 
+@task(name="Load pickle")
 def load_pickle(path: str) -> Any:
     """Load pickle object
 
