@@ -1,9 +1,9 @@
 # TODO - complete with requirements (pandas, sklearn etc...)
 # Then, execute "pip-compile requirements.in" to generate the file requirements.txt
 
-numpy==1.26.0
+numpy>=1.24.0
 pandas==1.5.3
-scikit-learn==0.24.2
+scikit-learn>=0.23.0
 seaborn==0.13.0
 matplotlib==3.8.0
 plotly==5.17.0
