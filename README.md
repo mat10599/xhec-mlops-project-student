@@ -79,8 +79,7 @@ The project is organized into three main sections, each serving a specific purpo
    - This section showcases the implementation of workflow orchestration using Prefect. Prefect is used to define, schedule, and execute workflows, providing a framework for managing the entire data pipeline, including data extraction, transformation, and loading (ETL), and model training.
 
    - **Flows Included**:
-     - `workflow.py`: Prefect flow for data ETL processes.
-     - `train_model_workflow.py`: Prefect flow for training machine learning models.
+     - `workflow.py`: Prefect flow for data ETL processes, training and prediction workflows.
 
 3. **App Dockerized through an API**:
    - In this section, the project's machine learning model is deployed as a Dockerized API, allowing you to interact with the model via RESTful API endpoints. The Dockerized API provides an easy way to serve the model for predictions, making it accessible for use in different applications.
