@@ -13,12 +13,10 @@ The goal of this repository is to implement MlOps practices.
 3) Install requirements 
    - For anaconda users
     1) ```bash 
-        conda create --name myenv python=3.8  # creates the environment
+        conda env create -f environment.yml # create environment x-hec-solution
         ```
+
     2)  ```bash 
-        conda create --name myenv python=3.8  # activates the environment
-        ```
-    3)  ```bash 
         conda install --file requirements.in # install the required packages
         ```
     - For virtualvenv users
@@ -39,7 +37,7 @@ The goal of this repository is to implement MlOps practices.
         ```
 
     4) ```bash 
-        pip install pip-tools
+        pip-compile requirements.in
         ```
 
 
