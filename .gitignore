@@ -134,6 +134,8 @@ dmypy.json
 secrets/*
 !secrets/.gitkeep
 
-/data
+notebooks/
+.DS_Store
+
 
 *.DS_Store

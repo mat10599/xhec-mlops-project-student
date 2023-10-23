@@ -1,7 +1,11 @@
 import pandas as pd
-import pickle
+import numpy as np
 from xgboost import XGBRegressor
+from prefect import flow, task
 
 
-def predict(model: XGBRegressor, input_data: pd.DataFrame):
-    pass
+@task(name="Predict model")
+def predict(input_data: pd.DataFrame, model: XGBRegressor) -> np.ndarray:
+    predictions = model.predict(input_data)
+
+    return predictions
