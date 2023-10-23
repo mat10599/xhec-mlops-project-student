@@ -126,8 +126,7 @@ pytz==2023.3.post1
     # via
     #   mlflow
     #   pandas
-pywin32==306
-    # via docker
+
 pyyaml==6.0.1
     # via mlflow
 querystring-parser==1.2.4
